@@ -100,6 +100,17 @@ Traditional RAG approaches often rely on batch processing and static data summar
 
 Graphiti is specifically designed to address the challenges of dynamic and frequently updated datasets, making it particularly suitable for applications requiring real-time interaction and precise historical queries.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [MCP Server](#mcp-server)
+- [REST Service](#rest-service)
+- [Docs](#documentation)
+- [Development](#development)
+- [License](#license)
+- [Community](#community)
+
 ## Installation
 
 Requirements:
@@ -187,114 +198,36 @@ The `server` directory contains an API service for interacting with the Graphiti
 
 Please see the [server README](./server/README.md) for more information.
 
-## Optional Environment Variables
+## Docs
 
-In addition to the Neo4j and OpenAi-compatible credentials, Graphiti also has a few optional environment variables.
-If you are using one of our supported models, such as Anthropic or Voyage models, the necessary environment variables
-must be set.
+- [Guides and API docs](https://help.getzep.com/graphiti)
 
-`USE_PARALLEL_RUNTIME` is an optional boolean variable that can be set to true if you wish
-to enable Neo4j's parallel runtime feature for several of our search queries.
-Note that this feature is not supported for Neo4j Community edition or for smaller AuraDB instances,
-as such this feature is off by default.
+## Development
 
-## Using Graphiti with Azure OpenAI
-
-Graphiti supports Azure OpenAI for both LLM inference and embeddings. To use Azure OpenAI, you'll need to configure both the LLM client and embedder with your Azure OpenAI credentials.
-
-```python
-from openai import AsyncAzureOpenAI
-from graphiti_core import Graphiti
-from graphiti_core.llm_client import OpenAIClient
-from graphiti_core.embedder.openai import OpenAIEmbedder, OpenAIEmbedderConfig
-from graphiti_core.cross_encoder.openai_reranker_client import OpenAIRerankerClient
-
-# Azure OpenAI configuration
-api_key = "<your-api-key>"
-api_version = "<your-api-version>"
-azure_endpoint = "<your-azure-endpoint>"
-
-# Create Azure OpenAI client for LLM
-azure_openai_client = AsyncAzureOpenAI(
-    api_key=api_key,
-    api_version=api_version,
-    azure_endpoint=azure_endpoint
-)
-
-# Initialize Graphiti with Azure OpenAI clients
-graphiti = Graphiti(
-    "bolt://localhost:7687",
-    "neo4j",
-    "password",
-    llm_client=OpenAIClient(
-        client=azure_openai_client
-    ),
-    embedder=OpenAIEmbedder(
-        config=OpenAIEmbedderConfig(
-            embedding_model="text-embedding-3-small"  # Use your Azure deployed embedding model name
-        ),
-        client=azure_openai_client
-    ),
-    # Optional: Configure the OpenAI cross encoder with Azure OpenAI
-    cross_encoder=OpenAIRerankerClient(
-        client=azure_openai_client
-    )
-)
-
-# Now you can use Graphiti with Azure OpenAI
-```
-
-Make sure to replace the placeholder values with your actual Azure OpenAI credentials and specify the correct embedding model name that's deployed in your Azure OpenAI service.
-
-## Using Graphiti with Google Gemini
-
-Graphiti supports Google's Gemini models for both LLM inference and embeddings. To use Gemini, you'll need to configure both the LLM client and embedder with your Google API key.
-
-Install Graphiti:
+Clone, install dependencies, and run tests:
 
 ```bash
-poetry add "graphiti-core[google-genai]"
-
-# or
-
-uv add "graphiti-core[google-genai]"
+git clone https://github.com/getzep/graphiti.git
+cd graphiti
+poetry install
+pytest
 ```
 
-```python
-from graphiti_core import Graphiti
-from graphiti_core.llm_client.gemini_client import GeminiClient, LLMConfig
-from graphiti_core.embedder.gemini import GeminiEmbedder, GeminiEmbedderConfig
+Lint and type check:
 
-# Google API key configuration
-api_key = "<your-google-api-key>"
-
-# Initialize Graphiti with Gemini clients
-graphiti = Graphiti(
-    "bolt://localhost:7687",
-    "neo4j",
-    "password",
-    llm_client=GeminiClient(
-        config=LLMConfig(
-            api_key=api_key,
-            model="gemini-2.0-flash"
-        )
-    ),
-    embedder=GeminiEmbedder(
-        config=GeminiEmbedderConfig(
-            api_key=api_key,
-            embedding_model="embedding-001"
-        )
-    )
-)
-
-# Now you can use Graphiti with Google Gemini
+```bash
+make lint
+make typecheck
 ```
 
-## Documentation
+## License
 
-- [Guides and API documentation](https://help.getzep.com/graphiti).
-- [Quick Start](https://help.getzep.com/graphiti/graphiti/quick-start)
-- [Building an agent with LangChain's LangGraph and Graphiti](https://help.getzep.com/graphiti/graphiti/lang-graph-agent)
+[MIT](LICENSE)
+
+## Community
+
+- [Issues](https://github.com/getzep/graphiti/issues)
+- [Discord](https://discord.com/invite/W8Kw6bsgXQ)
 
 ## Status and Roadmap
 
