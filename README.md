@@ -316,3 +316,32 @@ to [CONTRIBUTING](CONTRIBUTING.md).
 ## Support
 
 Join the [Zep Discord server](https://discord.com/invite/W8Kw6bsgXQ) and make your way to the **#Graphiti** channel!
+
+## Frequently Asked Questions (FAQ)
+
+**Q: I get a connection error when trying to use Neo4j. What should I do?**
+- Ensure Neo4j is running and accessible at the address you provided (default: `bolt://localhost:7687`).
+- Double-check your username and password.
+- If using Docker, make sure the container is running and ports are mapped correctly.
+
+**Q: How do I set my OpenAI or other API keys?**
+- Set the required API keys as environment variables (e.g., `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc.).
+- You can use a `.env` file or set them directly in your shell before running your application.
+
+**Q: Can I use Graphiti without Neo4j?**
+- No, Neo4j is required as the graph database backend for Graphiti.
+
+**Q: Where can I find more examples or ask for help?**
+- Check the `examples/` directory for sample projects and usage.
+- Visit the [documentation](https://help.getzep.com/graphiti) for guides and API references.
+- Join the [Zep Discord server](https://discord.com/invite/W8Kw6bsgXQ) and ask in the **#Graphiti** channel.
+
+**Q: I encountered an error or bug. How can I report it?**
+- Please open an issue on the [GitHub Issues page](https://github.com/getzep/graphiti/issues) with details and steps to reproduce.
+
+**Q: How can I contribute to the project?**
+- See the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on contributing code, documentation, or support.
+
+---
+
+If your question is not answered here, please refer to the documentation or reach out via Discord or GitHub Issues!
